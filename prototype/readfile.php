@@ -105,6 +105,9 @@
 		else {
 			$r = explode("=>", $rule);
 			$r[0] = trim($r[0]);
+			$r[0] = str_replace("+", "&&", $r[0]);
+			$r[0] = str_replace("|", "||", $r[0]);
+			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
 			$q = preg_replace("/[A-Z ]/", "", $r[1]);
 			if ($q == NULL) {
 				$r[1] = trim($r[1]);
