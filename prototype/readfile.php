@@ -95,8 +95,7 @@
 	$fn_trues[] = "\treturn (0);";
 	$fn_trues[] = "}";
 
-	/*Generate rules function*/
-	$fn_rules[0] = "void\trules(void)";
+	/*Generate rules function*/  
 	$fn_rules[1] = "{";
 	foreach ($rules as $rule) {
 		if (preg_match("/<=>/", $rule)) {
@@ -112,9 +111,27 @@
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_var({$r[1]});";
 			}
-		//	else if ($q == "+") {
-		//		$fn_rules = 
-		//	}
+			else if ($q == "+") {
+				$tmp = explode("+", $r[1]);
+				$tmp[0] = trim($tmp[0]);
+				$tmp[1] = trim($tmp[1]);
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
+			}
+			else if ($q == "|") {
+				$tmp = explode("|", $r[1]);
+				$tmp[0] = trim($tmp[0]);
+				$tmp[1] = trim($tmp[1]);
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t\tset_or_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
+			}
+			else if ($q == "^") {
+				$tmp = explode("^", $r[1]);
+				$tmp[0] = trim($tmp[0]);
+				$tmp[1] = trim($tmp[1]);
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t\tset_xor_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
+			}
 		}
 	}
 	$fn_rules[] = "}";
