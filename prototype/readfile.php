@@ -16,7 +16,7 @@
 		$line = trim(preg_replace('/\s+/', ' ', (preg_replace('/\t+/', ' ', $line))));
 		if (strcspn($line, "#"))
 			$line = trim(substr($line, 0, strcspn($line, "#")));
-		else if ($line[0] == "#" || $line == NULL)
+		else if (empty($fact) || $line[0] == "#" || $line == NULL)
 			continue;
 		if (strcspn($line, "=>") > 0 && $line[0] !== "?")
 			$rules[] = $line;
@@ -68,6 +68,58 @@
 			die("Error: Invalid querie [$querie]" . PHP_EOL);
 	}
 
+	/*Generate done function*/
+	$fn_done[0] = "int\tdone(void)";
+	$fn_done[1] = "{";
+	foreach ($facts as $fact) {
+		$k = 0;
+		$l = strlen($fact);
+		while (!empty($fact) && (++$k) < $l) {
+			$fn_done[] = "\tif ({$fact[$k]} != 0 && {$fact[$k]} != 1)";
+			$fn_done[] = "\t\treturn (1);";
+		}
+	}
+	$fn_done[] = "\treturn (0);";
+	$fn_done[] = "}";
+
+	/*Generate trues function*/
+	$fn_trues[0] = "int\ttrues(void)";
+	$fn_trues[1] = '{';
+	foreach ($queries as $querie) {
+		$k = 0;
+		$l = strlen($fact);
+		while (!empty($fact) && (++$k) < $l) {
+			$fn_trues[] = "\t{$querie[$k]} = 2;";
+		}
+	}
+	$fn_trues[] = "\treturn (0);";
+	$fn_trues[] = "}";
+
+	/*Generate rules function*/
+	$fn_rules[0] = "void\trules(void)";
+	$fn_rules[1] = "{";
+	foreach ($rules as $rule) {
+		if (preg_match("/<=>/", $rule)) {
+			$r = explode("<=>", $rule);
+			//
+		}
+		else {
+			$r = explode("=>", $rule);
+			$r[0] = trim($r[0]);
+			$q = preg_replace("/[A-Z ]/", "", $r[1]);
+			if ($q == NULL) {
+				$r[1] = trim($r[1]);
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t\tset_var({$r[1]});";
+			}
+		//	else if ($q == "+") {
+		//		$fn_rules = 
+		//	}
+		}
+	}
+	$fn_rules[] = "}";
+
 	/*Debug (uncomment to use)*/
 	//var_dump($rules, $facts, $queries);
+	var_dump($fn_done, $fn_trues, $fn_rules);
 ?>
