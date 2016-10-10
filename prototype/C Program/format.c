@@ -2,7 +2,8 @@
 
 void	rules(void)
 {
-	if (RULE) SET_X;
+	if (RULE)
+		SET_X;
 	...
 }
 
