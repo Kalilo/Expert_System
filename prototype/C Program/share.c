@@ -38,7 +38,7 @@ void	error_quit(char e)
 	if (e == 1)
 		write(1, "Error: variable already set.\n", 30);
 	else if (e == 2)
-		write(1, "Error: controdicting statement.\n", 32);
+		write(1, "Error: contradicting statement.\n", 32);
 	exit(1);
 }
 
