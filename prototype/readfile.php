@@ -72,6 +72,7 @@
 	$fn_done[0] = "int\tdone(void)";
 	$fn_done[1] = "{";
 	foreach ($facts as $fact) {
+		$fact = strtolower($fact);
 		$k = 0;
 		$l = strlen($fact);
 		while (!empty($fact) && (++$k) < $l) {
@@ -86,6 +87,7 @@
 	$fn_trues[0] = "int\ttrues(void)";
 	$fn_trues[1] = '{';
 	foreach ($queries as $querie) {
+		$querie = strtolower($querie);
 		$k = 0;
 		$l = strlen($fact);
 		while (!empty($fact) && (++$k) < $l) {
@@ -98,13 +100,14 @@
 	/*Generate rules function*/  
 	$fn_rules[1] = "{";
 	foreach ($rules as $rule) {
+		$rule = strtolower($rule);
 		if (preg_match("/<=>/", $rule)) {
 			$r = explode("<=>", $rule);
 			$r[0] = trim($r[0]);
 			$r[0] = str_replace("+", "&&", $r[0]);
 			$r[0] = str_replace("|", "||", $r[0]);
 			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
-			$q = preg_replace("/[A-Z ]/", "", $r[1]);
+			$q = preg_replace("/[a-z ]/", "", $r[1]);
 			if ($q == NULL) {
 				$r[1] = trim($r[1]);
 				$fn_rules[] = "\tif ({$r[0]})";
@@ -157,7 +160,7 @@
 			$r[0] = str_replace("+", "&&", $r[0]);
 			$r[0] = str_replace("|", "||", $r[0]);
 			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
-			$q = preg_replace("/[A-Z ]/", "", $r[1]);
+			$q = preg_replace("/[a-z ]/", "", $r[1]);
 			if ($q == NULL) {
 				$r[1] = trim($r[1]);
 				$fn_rules[] = "\tif ({$r[0]})";
