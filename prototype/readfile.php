@@ -126,7 +126,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
 				$fn_rules[] = "\telse";
@@ -136,7 +136,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
 				$fn_rules[] = "\telse";
@@ -146,7 +146,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("^", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
 				$fn_rules[] = "\telse";
@@ -156,7 +156,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 1);";
 				$fn_rules[] = "\telse";
@@ -166,7 +166,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 0);";
 				$fn_rules[] = "\telse";
@@ -176,7 +176,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 0);";
 				$fn_rules[] = "\telse";
@@ -186,7 +186,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 1);";
 				$fn_rules[] = "\telse";
@@ -196,7 +196,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 0);";
 				$fn_rules[] = "\telse";
@@ -206,7 +206,7 @@
 				$r[1] = trim($r[1]);
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 0);";
 				$fn_rules[] = "\telse";
@@ -241,77 +241,77 @@
 			else if ($q == "|") {
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_or_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
 			}
 			else if ($q == "^") {
 				$tmp = explode("^", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_xor_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
 			}
 			else if ($q == "!+") {
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 1);";
 			}
 			else if ($q == "+!") {
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 0);";
 			}
 			else if ($q == "!+!") {
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 0);";
 			}
 			else if ($q == "!|") {
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 1);";
 			}
 			else if ($q == "|!") {
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 0);";
 			}
 			else if ($q == "!|!") {
 				$tmp = explode("|", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 0);";
 			}
 			else if ($q == "!^") {
 				$tmp = explode("^", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 1);";
 			}
 			else if ($q == "^!") {
 				$tmp = explode("^", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 0);";
 			}
 			else if ($q == "!^!") {
 				$tmp = explode("^", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 0);";
 			}
