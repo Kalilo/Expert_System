@@ -234,7 +234,7 @@
 			else if ($q == "+") {
 				$tmp = explode("+", $r[1]);
 				$tmp[0] = trim($tmp[0]);
-				$tmp[1] = trim($tmp[1]);
+				$tmp[1] = trim(str_replace("!", "", $tmp[1]));
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
 			}
