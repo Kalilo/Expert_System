@@ -100,6 +100,25 @@
 	foreach ($rules as $rule) {
 		if (preg_match("/<=>/", $rule)) {
 			$r = explode("<=>", $rule);
+			$r[0] = trim($r[0]);
+			$r[0] = str_replace("+", "&&", $r[0]);
+			$r[0] = str_replace("|", "||", $r[0]);
+			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
+			$q = preg_replace("/[A-Z ]/", "", $r[1]);
+			if ($q == NULL) {
+				$r[1] = trim($r[1]);
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t\tset_var({$r[1]}, 1);";
+				$fn_rules[] = "\telse";
+				$fn_rules[] = "\t\tset_var({$r[1]}, 0);";
+			}
+			else if ($q == "!") {
+				$r[1] = trim(str_replace("!", "", $r[1]));
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t\tset_var({$r[1]}, 0);";
+				$fn_rules[] = "\telse";
+				$fn_rules[] = "\t\tset_var({$r[1]}, 1);";
+			}
 			//
 		}
 		else {
@@ -112,7 +131,12 @@
 			if ($q == NULL) {
 				$r[1] = trim($r[1]);
 				$fn_rules[] = "\tif ({$r[0]})";
-				$fn_rules[] = "\t\tset_var({$r[1]});";
+				$fn_rules[] = "\t\tset_var({$r[1]}, 1);";
+			}
+			else if ($q == "!") {
+				$r[1] = trim(str_replace("!", "", $r[1]));
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t\tset_var({$r[1]}, 0);";
 			}
 			else if ($q == "+") {
 				$tmp = explode("+", $r[1]);
@@ -198,6 +222,7 @@
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 0, 0);";
 			}
+			//
 		}
 	}
 	$fn_rules[] = "}";
