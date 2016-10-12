@@ -231,7 +231,7 @@
 					if ($tmp[$k] == "!")
 						$neg = 0;
 					else {
-						$fn_rules[] = "\t\tset_var({$tmp[$k]}, {$neg})";
+						$fn_rules[] = "\t\tset_var({$tmp[$k]}, {$neg});";
 						$neg = 1;
 					}
 				}
