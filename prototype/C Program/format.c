@@ -7,7 +7,7 @@ void	rules(void)
 	...
 }
 
-int		done(void)
+char	done(void)
 {
 	if (REQUESTED_VARIABLE != 0 && REQUESTED_VARIABLE != 1)
 		return (1);

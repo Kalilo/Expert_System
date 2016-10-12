@@ -69,7 +69,7 @@
 	}
 
 	/*Generate done function*/
-	$fn_done[0] = "int\tdone(void)";
+	$fn_done[0] = "char\tdone(void)";
 	$fn_done[1] = "{";
 	foreach ($facts as $fact) {
 		$fact = strtolower($fact);
