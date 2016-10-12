@@ -224,10 +224,10 @@
 				$tmp = preg_replace("/[+ ]/", "", $r[1]);
 				$neg = 1;
 				$k = -1;
-				$l = strlen($fact);
+				$l = strlen($tmp);
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t{";
-				while (!empty($tmp) && (++$k) <= $l) {
+				while (!empty($tmp) && (++$k) < $l) {
 					if ($tmp[$k] == "!")
 						$neg = 0;
 					else {
@@ -240,8 +240,7 @@
 				$fn_rules[] = "\t{";
 				$neg = 0;
 				$k = -1;
-				$l = strlen($fact);
-				while (!empty($tmp) && (++$k) <= $l) {
+				while (!empty($tmp) && (++$k) < $l) {
 					if ($tmp[$k] == "!")
 						$neg = 1;
 					else {
@@ -358,10 +357,10 @@
 				$tmp = preg_replace("/[+ ]/", "", $r[1]);
 				$neg = 1;
 				$k = -1;
-				$l = strlen($fact);
+				$l = strlen($tmp);
 				$fn_rules[] = "\tif ({$r[0]})";
 				$fn_rules[] = "\t{";
-				while (!empty($tmp) && (++$k) <= $l) {
+				while (!empty($tmp) && (++$k) < $l) {
 					if ($tmp[$k] == "!")
 						$neg = 0;
 					else {
