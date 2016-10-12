@@ -97,7 +97,8 @@
 	$fn_trues[] = "\treturn (0);";
 	$fn_trues[] = "}";
 
-	/*Generate rules function*/  
+	/*Generate rules function*/
+	$fn_rules[0] = "void\trules(void)";
 	$fn_rules[1] = "{";
 	foreach ($rules as $rule) {
 		$rule = strtolower($rule);
