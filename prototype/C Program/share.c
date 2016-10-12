@@ -5,6 +5,7 @@
 void	rules(void);
 int		done(void);
 int		trues(void);
+void	display(void);
 
 char	a = -1;
 char	b = -1;
@@ -91,4 +92,5 @@ int		main()
 		rules();
 		count++;
 	}
+	display();
 }

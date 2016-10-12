@@ -20,3 +20,12 @@ int		trues(void)
 	VARIABLE = 2;
 	...
 }
+
+void	display(void)
+{
+	if (REQUESTED_VARIABLE)
+		write(1, "REQUESTED_VARIABLE is true.\n", 11);
+	else
+		write(1, "REQUESTED_VARIABLE is false.\n", 12);
+	...
+}
