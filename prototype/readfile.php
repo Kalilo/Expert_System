@@ -44,7 +44,7 @@
 			die ("Error: Multiple implications per rule." . PHP_EOL);
 		if (strpos($rule, "<=>"))
 			$tmp = explode("<=>", $rule);
-		else if (strpos("==>"))
+		else if (strpos($rule, "==>"))
 			$tmp = explode("==>", $rule);
 		else
 			$tmp = explode("=>", $rule);
