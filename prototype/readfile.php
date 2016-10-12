@@ -220,6 +220,39 @@
 				$fn_rules[] = "\telse";
 				$fn_rules[] = "\t\tset_and_case({$tmp[0]}, {$tmp[1]}, 1, 1);";
 			}
+			else if (preg_replace("/!&/", "", $q) == NULL) {
+				$tmp = preg_replace("/& /", "", $r[1]);
+				$neg = 1;
+				$k = -1;
+				$l = strlen($fact);
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t{";
+				while (!empty($tmp) && (++$k) < $l) {
+					if ($tmp[$k] == "!")
+						$neg = 0;
+					else {
+						$fn_rules[] = "\t\tset_var({$tmp[$k]}, {$neg})";
+						$neg[] = 1;
+					}
+				}
+				$fn_rules[] = "\t}";
+				$fn_rules[] = "\telse";
+				$fn_rules[] = "\t{";
+				$neg = 0;
+				$k = -1;
+				$l = strlen($fact);
+				$fn_rules[] = "\tif ({$r[0]})";
+				$fn_rules[] = "\t{";
+				while (!empty($tmp) && (++$k) < $l) {
+					if ($tmp[$k] == "!")
+						$neg = 1;
+					else {
+						$fn_rules[] = "\t\tset_var({$tmp[$k]}, {$neg})";
+						$neg[] = 0;
+					}
+				}
+				$fn_rules[] = "\t}";
+			}
 			//
 		}
 		else {
@@ -334,7 +367,7 @@
 					if ($tmp[$k] == "!")
 						$neg = 0;
 					else {
-						$fn_rules[] = "\t\tset_var({}, {})";
+						$fn_rules[] = "\t\tset_var({$tmp[$k]}, {$neg})";
 						$neg[] = 1;
 					}
 				}
