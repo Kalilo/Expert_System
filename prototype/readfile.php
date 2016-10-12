@@ -108,8 +108,8 @@
 	$fn_rules[1] = "{";
 	foreach ($rules as $rule) {
 		$rule = strtolower($rule);
-		if (preg_match("/<=>/", $rule)) {
-			$r = explode("<=>", $rule);
+		if (preg_match("/==>/", $rule)) {
+			$r = explode("==>", $rule);
 			$r[0] = trim($r[0]);
 			$r[0] = str_replace("+", "&&", $r[0]);
 			$r[0] = str_replace("|", "||", $r[0]);
