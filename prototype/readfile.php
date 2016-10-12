@@ -35,7 +35,12 @@
 	foreach ($rules as $rule) {
 		if (strpos($rule, "=>") != strpos($rule, "=>"))
 			die ("Error: Multiple implications per rule." . PHP_EOL);
-		$tmp = explode((strpos($rule, "<=>") ? "<=>" : "=>"), $rule);
+		if (strpos($rule, "<=>"))
+			$tmp = explode("<=>", $rule);
+		else if (strpos("==>"))
+			$tmp = explode("==>", $rule);
+		else
+			$tmp = explode("=>", $rule);
 		if (!trim($tmp[0]) || !trim($tmp[1]))
 			die("Error: Invalid rule [$rule], missing expression" . PHP_EOL);
 		if (!preg_match("/[A-Z]/i", $tmp[0]) || !preg_match("/[A-Z]/i", $tmp[1]))
