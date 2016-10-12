@@ -15,7 +15,7 @@ int		done(void)
 	return (0);
 }
 
-int		trues(void)
+void	trues(void)
 {
 	VARIABLE = 2;
 	...

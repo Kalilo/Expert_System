@@ -84,7 +84,7 @@
 	$fn_done[] = "}";
 
 	/*Generate trues and display function*/
-	$fn_trues[0] = "int\ttrues(void)";
+	$fn_trues[0] = "void\ttrues(void)";
 	$fn_trues[1] = '{';
 	$fn_display[0] = "void\tdisplay(void)";
 	$fn_display[1] = "{";
@@ -101,7 +101,6 @@
 		}
 	}
 	$fn_display[] = "}";
-	$fn_trues[] = "\treturn (0);";
 	$fn_trues[] = "}";
 
 	/*Generate rules function*/
