@@ -18,8 +18,15 @@
 			$line = trim(substr($line, 0, strcspn($line, "#")));
 		else if (empty($fact) || $line[0] == "#" || $line == NULL)
 			continue;
-		if (strcspn($line, "=>") > 0 && $line[0] !== "?")
-			$rules[] = $line;
+		if (strcspn($line, "=>") > 0 && $line[0] !== "?") {
+			if (strpos($line, "<=>") > 0) {
+				$tmp = explode("<=>", $line);
+				$rules[] = "{$tmp[0]} => {$tmp[1]}";
+				$rules[] = "{$tmp[1]} => {$tmp[0]}";
+			}
+			else
+				$rules[] = $line;
+		}
 		else if ($line[0] == "=" && $line[1] != ">")
 			$facts[] = $line;
 		else if ($line[0] == "?")
