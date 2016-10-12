@@ -83,17 +83,24 @@
 	$fn_done[] = "\treturn (0);";
 	$fn_done[] = "}";
 
-	/*Generate trues function*/
+	/*Generate trues and display function*/
 	$fn_trues[0] = "int\ttrues(void)";
 	$fn_trues[1] = '{';
+	$fn_display[0] = "void\tdisplay(void)";
+	$fn_display[1] = "{";
 	foreach ($queries as $querie) {
 		$querie = strtolower($querie);
 		$k = 0;
 		$l = strlen($fact);
 		while (!empty($fact) && (++$k) < $l) {
 			$fn_trues[] = "\t{$querie[$k]} = 2;";
+			$fn_display[] = "\tif ({$querie[$k]})";
+			$fn_display[] = '		write(1, "' . $querie[$k] . ' is true.\n", 11);';
+			$fn_display[] = "\telse";
+			$fn_display[] = '		write(1, "' . $querie[$k] . ' is false.\n", 12);';
 		}
 	}
+	$fn_display[] = "}";
 	$fn_trues[] = "\treturn (0);";
 	$fn_trues[] = "}";
 
@@ -323,5 +330,5 @@
 
 	/*Debug (uncomment to use)*/
 	//var_dump($rules, $facts, $queries);
-	var_dump($fn_done, $fn_trues, $fn_rules);
+	var_dump($fn_done, $fn_trues, $fn_display, $fn_rules);
 ?>
