@@ -18,15 +18,8 @@
 			$line = trim(substr($line, 0, strcspn($line, "#")));
 		else if (empty($fact) || $line[0] == "#" || $line == NULL)
 			continue;
-		if (strcspn($line, "=>") > 0 && $line[0] !== "?") {
-			if (strpos($line, "<=>") > 0) {
-				$tmp = explode("<=>", $line);
-				$rules[] = "{$tmp[0]} => {$tmp[1]}";
-				$rules[] = "{$tmp[1]} => {$tmp[0]}";
-			}
-			else
-				$rules[] = $line;
-		}
+		if (strcspn($line, "=>") > 0 && $line[0] !== "?")
+			$rules[] = $line;
 		else if ($line[0] == "=" && $line[1] != ">")
 			$facts[] = $line;
 		else if ($line[0] == "?")
@@ -386,7 +379,32 @@
 	}
 	$fn_rules[] = "}";
 
+	/*Write to file*/
+	$command = system("cp ./C\ Program/share.c ./expert_system.c");
+	/*writing the $fn_done, $fn_true, $fn_rules to same file*/
+	$fd = fopen("./expert_system.c", "a+");
+	foreach ($fn_done as $line) {
+		fwrite($fd, $line . "\n");
+	}
+	fwrite($fd, "\n");
+	foreach ($fn_trues as $line) {
+		fwrite($fd, $line . "\n");
+	}
+	fwrite($fd, "\n");
+	foreach ($fn_rules as $line) {
+		fwrite($fd, $line . "\n");
+	}
+	fwrite($fd, "\n");
+	foreach ($fn_display as $line) {
+		fwrite($fd, $line . "\n");
+	}
+	fwrite($fd, "\n");
+
+	/*compile expert_system.c*/
+	$command = system("gcc expert_system.c -o expert_system", $retval);
+	echo "retval = $retval \n";
+
 	/*Debug (uncomment to use)*/
 	//var_dump($rules, $facts, $queries);
-	var_dump($fn_done, $fn_trues, $fn_display, $fn_rules);
+	//var_dump($fn_done, $fn_trues, $fn_display, $fn_rules);
 ?>
