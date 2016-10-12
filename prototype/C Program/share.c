@@ -2,8 +2,8 @@
 #include <unistd.h>
 
 void	rules(void);
-int		done(void);
-int		trues(void);
+char	done(void);
+void	trues(void);
 void	display(void);
 
 char	a = -1;
