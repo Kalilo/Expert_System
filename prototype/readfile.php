@@ -95,6 +95,44 @@
 	$fn_done[] = "\treturn (0);";
 	$fn_done[] = "}";
 
+	/*Extract Relavent rules*/
+	$q = NULL;
+	foreach ($queries as $querie) {
+		$l = strlen($querie);
+		$k = 0;
+		while (++$k < $l) {
+			if (strpos($q, $querie[$k]) === FALSE)
+				$q .= $querie[$k];
+		}
+	}
+	$changed = 1;
+	$f = NULL;
+	while ($changed) {
+		$changed = 0;
+		foreach ($rules as $rule) {
+			$l = strlen($q);
+			$k = -1;
+			while ((++$k < $l) && isset($rule)) {
+				if (preg_match("/=>.*{$q[$k]}.*/", $rule)) {
+					$tmp = preg_replace("/[ \|\+\!\=\>\<\^\(\)]/", "", $rule);
+					$l2 = strlen($tmp);
+					$k2 = -1;
+					while (++$k2 < $l2) {
+						if (strpos($q, $tmp[$k2]) === FALSE) {
+							$q .= $tmp[$k2];
+							$changed = 1;
+						}
+					}
+					if ($f == FALSE || in_array($rule, $f) === FALSE) {
+						$f[] = $rule;
+						unset($rule);
+					}
+				}
+			}
+		}
+	}
+	$rules = $f;
+
 	/*Generate trues and display function*/
 	$fn_trues[0] = "void\ttrues(void)";
 	$fn_trues[1] = '{';
