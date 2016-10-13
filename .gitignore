@@ -33,6 +33,9 @@
 *.su
 
 # Other
+.gitignore
 *.pdf
 .DS_Store
 ._.DS_Store
+expert_system
+expert_system.c
