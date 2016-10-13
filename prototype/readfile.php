@@ -80,21 +80,6 @@
 			die("Error: Invalid querie [$querie]" . PHP_EOL);
 	}
 
-	/*Generate done function*/
-	$fn_done[0] = "char\tdone(void)";
-	$fn_done[1] = "{";
-	foreach ($facts as $fact) {
-		$fact = strtolower($fact);
-		$k = 0;
-		$l = strlen($fact);
-		while (!empty($fact) && (++$k) < $l) {
-			$fn_done[] = "\tif ({$fact[$k]} != 0 && {$fact[$k]} != 1)";
-			$fn_done[] = "\t\treturn (1);";
-		}
-	}
-	$fn_done[] = "\treturn (0);";
-	$fn_done[] = "}";
-
 	/*Extract Relavent rules*/
 	$q = NULL;
 	foreach ($queries as $querie) {
@@ -132,6 +117,21 @@
 		}
 	}
 	$rules = $f;
+
+	/*Generate done function*/
+	$fn_done[0] = "char\tdone(void)";
+	$fn_done[1] = "{";
+	foreach ($facts as $fact) {
+		$fact = strtolower($fact);
+		$k = 0;
+		$l = strlen($fact);
+		while (!empty($fact) && (++$k) < $l) {
+			$fn_done[] = "\tif ({$fact[$k]} != 0 && {$fact[$k]} != 1)";
+			$fn_done[] = "\t\treturn (1);";
+		}
+	}
+	$fn_done[] = "\treturn (0);";
+	$fn_done[] = "}";
 
 	/*Generate trues and display function*/
 	$fn_trues[0] = "void\ttrues(void)";
@@ -453,6 +453,7 @@
 	$fn_rules[] = "}";
 
 	/*Write to file*/
+	system("if [ -f expert_system.c ]; then rm expert_system.c;fi");
 	$command = system("cp ./C\ Program/share.c ./expert_system.c");
 	/*writing the $fn_done, $fn_true, $fn_rules to same file*/
 	$fd = fopen("./expert_system.c", "a+");
