@@ -27,7 +27,7 @@
 			else
 				$rules[] = $line;
 		}
-		else if ($line[0] == "=" && $line[1] != ">")
+		else if ($line[0] == "=" && !(strlen($line) > 1 && $line[1] == ">"))
 			$facts[] = $line;
 		else if ($line[0] == "?")
 			$queries[] = $line;
@@ -80,44 +80,83 @@
 			die("Error: Invalid querie [$querie]" . PHP_EOL);
 	}
 
+	/*Extract Relavent rules*/
+	$q = NULL;
+	foreach ($queries as $querie) {
+		$l = strlen($querie);
+		$k = 0;
+		while (++$k < $l) {
+			if (strpos($q, $querie[$k]) === FALSE)
+				$q .= $querie[$k];
+		}
+	}
+	$changed = 1;
+	$f = NULL;
+	while ($changed) {
+		$changed = 0;
+		foreach ($rules as $rule) {
+			$l = strlen($q);
+			$k = -1;
+			while ((++$k < $l) && isset($rule)) {
+				if (preg_match("/=>.*{$q[$k]}.*/", $rule)) {
+					$tmp = preg_replace("/[ \|\+\!\=\>\<\^\(\)]/", "", $rule);
+					$l2 = strlen($tmp);
+					$k2 = -1;
+					while (++$k2 < $l2) {
+						if (strpos($q, $tmp[$k2]) === FALSE) {
+							$q .= $tmp[$k2];
+							$changed = 1;
+						}
+					}
+					if ($f == FALSE || in_array($rule, $f) === FALSE) {
+						$f[] = $rule;
+						unset($rule);
+					}
+				}
+			}
+		}
+	}
+	$rules = $f;
+
 	/*Generate done function*/
 	$fn_done[0] = "char\tdone(void)";
 	$fn_done[1] = "{";
-	foreach ($facts as $fact) {
-		$fact = strtolower($fact);
-		$k = 0;
-		$l = strlen($fact);
-		while (!empty($fact) && (++$k) < $l) {
-			$fn_done[] = "\tif ({$fact[$k]} != 0 && {$fact[$k]} != 1)";
-			$fn_done[] = "\t\treturn (1);";
-		}
-	}
-	$fn_done[] = "\treturn (0);";
-	$fn_done[] = "}";
-
-	/*Generate trues and display function*/
-	$fn_trues[0] = "void\ttrues(void)";
-	$fn_trues[1] = '{';
 	$fn_display[0] = "void\tdisplay(void)";
 	$fn_display[1] = "{";
 	foreach ($queries as $querie) {
 		$querie = strtolower($querie);
 		$k = 0;
-		$l = strlen($fact);
-		while (!empty($fact) && (++$k) < $l) {
-			$fn_trues[] = "\t{$querie[$k]} = 3;";
+		$l = strlen($querie);
+		while (!empty($querie) && (++$k) < $l) {
+			$fn_done[] = "\tif ({$querie[$k]} != 0 && {$querie[$k]} != 1)";
+			$fn_done[] = "\t\treturn (1);";
 			$fn_display[] = "\tif ({$querie[$k]})";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is true.\n", 11);';
 			$fn_display[] = "\telse";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is false.\n", 12);';
 		}
 	}
+	$fn_done[] = "\treturn (0);";
+	$fn_done[] = "}";
 	$fn_display[] = "}";
+
+	/*Generate trues and display function*/
+	$fn_trues[0] = "void\ttrues(void)";
+	$fn_trues[1] = '{';
+	foreach ($facts as $fact) {
+		$fact = strtolower($fact);
+		$k = 0;
+		$l = strlen($fact);
+		while (!empty($fact) && (++$k) < $l) {
+			$fn_trues[] = "\t{$fact[$k]} = 3;";
+		}
+	}
 	$fn_trues[] = "}";
 
 	/*Generate rules function*/
 	$fn_rules[0] = "void\trules(void)";
 	$fn_rules[1] = "{";
+	if ($rules)
 	foreach ($rules as $rule) {
 		$rule = strtolower($rule);
 		if (preg_match("/==>/", $rule)) {
@@ -415,6 +454,7 @@
 	$fn_rules[] = "}";
 
 	/*Write to file*/
+	system("if [ -f expert_system.c ]; then rm expert_system.c;fi");
 	$command = system("cp ./C\ Program/share.c ./expert_system.c");
 	/*writing the $fn_done, $fn_true, $fn_rules to same file*/
 	$fd = fopen("./expert_system.c", "a+");
