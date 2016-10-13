@@ -27,7 +27,7 @@
 			else
 				$rules[] = $line;
 		}
-		else if (strlen($line) > 1 && $line[0] == "=" && $line[1] != ">")
+		else if ($line[0] == "=" && !(strlen($line) > 1 && $line[1] == ">"))
 			$facts[] = $line;
 		else if ($line[0] == "?")
 			$queries[] = $line;
