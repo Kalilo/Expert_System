@@ -118,7 +118,7 @@
 	}
 	$rules = $f;
 
-	/*Generate done function*/
+	/*Generate done and display function*/
 	$fn_done[0] = "char\tdone(void)";
 	$fn_done[1] = "{";
 	$fn_display[0] = "void\tdisplay(void)";
@@ -140,7 +140,7 @@
 	$fn_done[] = "}";
 	$fn_display[] = "}";
 
-	/*Generate trues and display function*/
+	/*Generate trues function*/
 	$fn_trues[0] = "void\ttrues(void)";
 	$fn_trues[1] = '{';
 	foreach ($facts as $fact) {
