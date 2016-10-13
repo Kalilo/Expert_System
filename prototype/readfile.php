@@ -21,8 +21,8 @@
 		if (strcspn($line, "=>") > 0 && $line[0] !== "?") {
 			if (strpos($line, "<=>")) {
 				$tmp = explode("<=>", $line);
-				$rules[] = "{$tmp[0]} => {$tmp[1]}";
-				$rules[] = "{$tmp[1]} => {$tmp[0]}";
+				$rules[] = trim("{$tmp[0]} => {$tmp[1]}");
+				$rules[] = trim("{$tmp[1]} => {$tmp[0]}");
 			}
 			else
 				$rules[] = $line;
