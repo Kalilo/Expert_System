@@ -80,17 +80,3 @@ void	set_xor_case(char *var1, char *var2, char val1, char val2)
 			((*var1 == 0 && val1) || (*var1 == 1 && !val1)))
 		error_quit(2);
 }
-
-int		main()
-{
-	int		count;
-
-	count = 0;
-	trues();
-	while (count < 100 && done())
-	{
-		rules();
-		count++;
-	}
-	display();
-}
