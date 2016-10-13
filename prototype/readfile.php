@@ -387,9 +387,9 @@
 	$fn_rules[] = "}";
 
 	/*Write to file*/
-	$command = system("cp ./C\ Program/share.c ./expert_system.c");
+	$command = system("cp ./C\ Program/share.cpp ./expert_system.cpp");
 	/*writing the $fn_done, $fn_true, $fn_rules to same file*/
-	$fd = fopen("./expert_system.c", "a+");
+	$fd = fopen("./expert_system.cpp", "a+");
 	foreach ($fn_done as $line) {
 		fwrite($fd, $line . "\n");
 	}
@@ -408,7 +408,7 @@
 	fwrite($fd, "\n");
 
 	/*compile expert_system.c*/
-	$command = system("gcc expert_system.c -o expert_system", $retval);
+	$command = system("g++ expert_system.cpp -o expert_system", $retval);
 	echo "retval = $retval \n";
 	if ($retval === 1)
 		die("Syntax Error in rules." . PHP_EOL);

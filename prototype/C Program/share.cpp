@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <unistd.h>
+using namespace std;
 
 void	rules(void);
 char	done(void);
@@ -32,6 +33,11 @@ char	w = -1;
 char	x = -1;
 char	y = -1;
 char	z = -1;
+
+void  *operator ^ (char x1, char x2)
+{
+	//
+}
 
 void	error_quit(char e)
 {
