@@ -86,6 +86,7 @@ int		main()
 	int		count;
 
 	count = 0;
+	trues();
 	while (count < 100 && done())
 	{
 		rules();
