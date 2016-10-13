@@ -427,7 +427,7 @@
 
 	/*Write to file*/
 	system("if [ -f expert_system.c ]; then rm expert_system.c;fi");
-	$command = system("cp ./C\ Program/share.c ./expert_system.c");
+	$command = system("cp ./C_Program/share.c ./expert_system.c");
 	/*writing the $fn_done, $fn_true, $fn_rules to same file*/
 	$fd = fopen("./expert_system.c", "a+");
 	foreach ($fn_done as $line) {
