@@ -130,7 +130,7 @@
 		while (!empty($querie) && (++$k) < $l) {
 			$fn_done[] = "\tif ({$querie[$k]} != 0 && {$querie[$k]} != 1)";
 			$fn_done[] = "\t\treturn (1);";
-			$fn_display[] = "\tif ({$querie[$k]})";
+			$fn_display[] = "\tif ({$querie[$k]} > 0)";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is true.\n", 11);';
 			$fn_display[] = "\telse";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is false.\n", 12);';
@@ -164,21 +164,7 @@
 			$r[0] = trim($r[0]);
 			$r[0] = str_replace("+", "&&", $r[0]);
 			$r[0] = str_replace("|", "||", $r[0]);
-			if (strpos($r[0], "^") > 0) {
-				if (preg_match("/([a-z]) \^ ([a-z])/", $r[0])) {
-					$r[0] = preg_replace("/([a-z]) \^ ([a-z])/", "($1 & 0x1) ^ ($2 & 0x1)", $r[0]);
-				}
-				if (preg_match("/(\(.+[a-z])\) \^ ([a-z])/", $r[0])) {
-					$r[0] = preg_replace("/(\(.+[a-z])\) \^ ([a-z])/", "($1) & 0x1) ^ ($2 & 0x1)", $r[0]);
-				}
-				if (preg_match("/(\(.+[a-z])\) \^ \(([a-z].+\))/", $r[0])) {
-					$r[0] = preg_replace("/(\(.+[a-z])\) \^ \(([a-z].+\))/", "($1) & 0x1) ^ (($2 & 0x1)", $r[0]);
-				}
-				if (preg_match("/([a-z]) \^ \(([a-z].+\))/", $r[0])) {
-					$r[0] = preg_replace("/([a-z]) \^ \(([a-z].+\))/", "($1 & 0x1) ^ (($2 & 0x1)", $r[0]);
-				}
-			}
-			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
+			$r[0] = preg_replace("/([a-z])/", "($1 > 0)", $r[0]);
 			$q = preg_replace("/[a-z ]/", "", $r[1]);
 			if ($q == NULL) {
 				$r[1] = trim($r[1]);
@@ -321,21 +307,7 @@
 			$r[0] = trim($r[0]);
 			$r[0] = str_replace("+", "&&", $r[0]);
 			$r[0] = str_replace("|", "||", $r[0]);
-			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
-			if (strpos($r[0], "^") > 0) {
-				if (preg_match("/([a-z]) \^ ([a-z])/", $r[0])) {
-					$r[0] = preg_replace("/([a-z]) \^ ([a-z])/", "($1 & 0x1) ^ ($2 & 0x1)", $r[0]);
-				}
-				if (preg_match("/(\(.+[a-z])\) \^ ([a-z])/", $r[0])) {
-					$r[0] = preg_replace("/(\(.+[a-z])\) \^ ([a-z])/", "($1) & 0x1) ^ ($2 & 0x1)", $r[0]);
-				}
-				if (preg_match("/(\(.+[a-z])\) \^ \(([a-z].+\))/", $r[0])) {
-					$r[0] = preg_replace("/(\(.+[a-z])\) \^ \(([a-z].+\))/", "($1) & 0x1) ^ (($2 & 0x1)", $r[0]);
-				}
-				if (preg_match("/([a-z]) \^ \(([a-z].+\))/", $r[0])) {
-					$r[0] = preg_replace("/([a-z]) \^ \(([a-z].+\))/", "($1 & 0x1) ^ (($2 & 0x1)", $r[0]);
-				}
-			}
+			$r[0] = preg_replace("/([a-z])/", "($1 > 0)", $r[0]);
 			$q = preg_replace("/[a-z ]/", "", $r[1]);
 			if ($q == NULL) {
 				$r[1] = trim($r[1]);
