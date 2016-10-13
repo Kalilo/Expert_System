@@ -27,7 +27,7 @@
 			else
 				$rules[] = $line;
 		}
-		else if ($line[0] == "=" && $line[1] != ">")
+		else if (strlen($line) > 1 && $line[0] == "=" && $line[1] != ">")
 			$facts[] = $line;
 		else if ($line[0] == "?")
 			$queries[] = $line;
@@ -156,6 +156,7 @@
 	/*Generate rules function*/
 	$fn_rules[0] = "void\trules(void)";
 	$fn_rules[1] = "{";
+	if ($rules)
 	foreach ($rules as $rule) {
 		$rule = strtolower($rule);
 		if (preg_match("/==>/", $rule)) {
