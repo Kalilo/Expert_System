@@ -33,6 +33,7 @@
 *.su
 
 # Other
+.gitignore
 *.pdf
 .DS_Store
 ._.DS_Store
