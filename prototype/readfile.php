@@ -125,7 +125,11 @@
 			$r[0] = trim($r[0]);
 			$r[0] = str_replace("+", "&&", $r[0]);
 			$r[0] = str_replace("|", "||", $r[0]);
-			//if (strpos($r[0], ))
+			if (strpos($r[0], "^") > 0) {
+				if (strpos($r[0], "(") === FALSE) {
+					$r[0] = preg_replace("/([a-z]) \^ ([a-z])/", "($1 & 0x1) ^ ($2 & 0x1)", $r[0]);
+				}
+			}
 			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
 			$q = preg_replace("/[a-z ]/", "", $r[1]);
 			if ($q == NULL) {
@@ -270,6 +274,11 @@
 			$r[0] = str_replace("+", "&&", $r[0]);
 			$r[0] = str_replace("|", "||", $r[0]);
 			//$r[0] = str_replace("^", "^^", $r[0]);//need an eqivelent
+			if (strpos($r[0], "^") > 0) {
+				if (strpos($r[0], "(") === FALSE) {
+					$r[0] = preg_replace("/([a-z]) \^ ([a-z])/", "($1 & 0x1) ^ ($2 & 0x1)", $r[0]);
+				}
+			}
 			$q = preg_replace("/[a-z ]/", "", $r[1]);
 			if ($q == NULL) {
 				$r[1] = trim($r[1]);
