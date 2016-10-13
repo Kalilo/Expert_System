@@ -409,7 +409,6 @@
 
 	/*compile expert_system.c*/
 	$command = system("gcc expert_system.c -o expert_system", $retval);
-	echo "retval = $retval \n";
 	if ($retval === 1)
 		die("Syntax Error in rules." . PHP_EOL);
 	$command = system("./expert_system");
