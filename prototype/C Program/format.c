@@ -17,7 +17,7 @@ char	done(void)
 
 void	trues(void)
 {
-	VARIABLE = 2;
+	VARIABLE = 3;
 	...
 }
 
