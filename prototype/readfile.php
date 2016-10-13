@@ -121,36 +121,36 @@
 	/*Generate done function*/
 	$fn_done[0] = "char\tdone(void)";
 	$fn_done[1] = "{";
-	foreach ($facts as $fact) {
-		$fact = strtolower($fact);
-		$k = 0;
-		$l = strlen($fact);
-		while (!empty($fact) && (++$k) < $l) {
-			$fn_done[] = "\tif ({$fact[$k]} != 0 && {$fact[$k]} != 1)";
-			$fn_done[] = "\t\treturn (1);";
-		}
-	}
-	$fn_done[] = "\treturn (0);";
-	$fn_done[] = "}";
-
-	/*Generate trues and display function*/
-	$fn_trues[0] = "void\ttrues(void)";
-	$fn_trues[1] = '{';
 	$fn_display[0] = "void\tdisplay(void)";
 	$fn_display[1] = "{";
 	foreach ($queries as $querie) {
 		$querie = strtolower($querie);
 		$k = 0;
-		$l = strlen($fact);
-		while (!empty($fact) && (++$k) < $l) {
-			$fn_trues[] = "\t{$querie[$k]} = 3;";
+		$l = strlen($querie);
+		while (!empty($querie) && (++$k) < $l) {
+			$fn_done[] = "\tif ({$querie[$k]} != 0 && {$querie[$k]} != 1)";
+			$fn_done[] = "\t\treturn (1);";
 			$fn_display[] = "\tif ({$querie[$k]})";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is true.\n", 11);';
 			$fn_display[] = "\telse";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is false.\n", 12);';
 		}
 	}
+	$fn_done[] = "\treturn (0);";
+	$fn_done[] = "}";
 	$fn_display[] = "}";
+
+	/*Generate trues and display function*/
+	$fn_trues[0] = "void\ttrues(void)";
+	$fn_trues[1] = '{';
+	foreach ($facts as $fact) {
+		$fact = strtolower($fact);
+		$k = 0;
+		$l = strlen($fact);
+		while (!empty($fact) && (++$k) < $l) {
+			$fn_trues[] = "\t{$fact[$k]} = 3;";
+		}
+	}
 	$fn_trues[] = "}";
 
 	/*Generate rules function*/
