@@ -153,6 +153,12 @@
 	}
 	$fn_trues[] = "}";
 
+	/*Generate main*/
+	$tmp = count($rules);
+	$fn_main = array ("int\t\tmain()", "{", "\tint\t\tcount;", "", "\tcount = 0;",
+		"\ttrues();", "\twhile (count < $tmp && done())", "\t{", "\t\trules();",
+		"\t\tcount++;", "\t}", "\tdisplay();", "}");
+
 	/*Generate rules function*/
 	$fn_rules[0] = "void\trules(void)";
 	$fn_rules[1] = "{";
@@ -430,6 +436,10 @@
 	$command = system("cp ./C_Program/share.c ./expert_system.c");
 	/*writing the $fn_done, $fn_true, $fn_rules to same file*/
 	$fd = fopen("./expert_system.c", "a+");
+	foreach ($fn_main as $line) {
+		fwrite($fd, $line . "\n");
+	}
+	fwrite($fd, "\n");
 	foreach ($fn_done as $line) {
 		fwrite($fd, $line . "\n");
 	}

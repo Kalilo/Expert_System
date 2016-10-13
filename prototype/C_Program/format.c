@@ -29,3 +29,17 @@ void	display(void)
 		write(1, "REQUESTED_VARIABLE is false.\n", 12);
 	...
 }
+
+int		main()
+{
+	int		count;
+
+	count = 0;
+	trues();
+	while (count < NUM_RULES && done())
+	{
+		rules();
+		count++;
+	}
+	display();
+}
