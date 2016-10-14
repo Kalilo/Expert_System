@@ -37,6 +37,7 @@
 *.pdf
 .DS_Store
 ._.DS_Store
+._*
 expert_system
 expert_system.c
 tmp.txt
