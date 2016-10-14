@@ -59,13 +59,10 @@ void	set_or_case(char *var1, char *var2, char val1, char val2)
 	else if (((*var1 == 0 && val1) || (*var1 == 1 && !val1)) &&
 			((*var2 == 0 && val2) || (*var2 == 1 && !val2)))
 		error_quit(2);
-	else
-	{
-		if (*var1 == -2)
-			*var1 = -4;
-		if (*var2 == -2)
-			*var2 = -4;
-	}
+	if (*var1 == -2)
+		*var1 = -4;
+	if (*var2 == -2)
+		*var2 = -4;
 }
 
 void	set_and_case(char *var1, char *var2, char val1, char val2)
@@ -77,20 +74,17 @@ void	set_and_case(char *var1, char *var2, char val1, char val2)
 void	set_xor_case(char *var1, char *var2, char val1, char val2)
 {
 	if ((*var1 == 1 && val1) || (*var1 == 0 && !val1))
-		set_var(var2, val2);
+		set_var(var2, !val2);
 	else if ((*var2 == 1 && val2) || (*var2 == 0 && !val2))
-		set_var(var1, val1);
+		set_var(var1, !val1);
 	else if (((*var1 == 1 && val1) || (*var1 == 0 && !val1)) &&
-			((*var2 == 0 && val2) || (*var2 == 1 && !val2)))
+			((*var2 == 1 && val2) || (*var2 == 0 && !val2)))
 		error_quit(2);
-	else if (((*var2 == 1 && val2) || (*var2 == 0 && !val2)) &&
+	else if (((*var2 == 0 && val2) || (*var2 == 1 && !val2)) &&
 			((*var1 == 0 && val1) || (*var1 == 1 && !val1)))
 		error_quit(2);
-	else
-	{
-		if (*var1 == -2)
-			*var1 = -4;
-		if (*var2 == -2)
-			*var2 = -4;
-	}
+	if (*var1 == -2)
+		*var1 = -4;
+	if (*var2 == -2)
+		*var2 = -4;
 }
