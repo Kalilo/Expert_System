@@ -132,6 +132,8 @@
 			$fn_done[] = "\t\treturn (1);";
 			$fn_display[] = "\tif ({$querie[$k]} > 0)";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is true.\n", 11);';
+			$fn_display[] = "\telse if ({$querie[$k]} == -4)";
+			$fn_display[] = '		write(1, "' . $querie[$k] . ' is undetermined\n", 18);';
 			$fn_display[] = "\telse";
 			$fn_display[] = '		write(1, "' . $querie[$k] . ' is false.\n", 12);';
 		}
