@@ -436,6 +436,7 @@
 	$command = system("cp ./C_Program/share.c ./expert_system.c");
 	/*writing the $fn_done, $fn_true, $fn_rules to same file*/
 	$fd = fopen("./expert_system.c", "a+");
+	fwrite($fd, $line . "\n");
 	foreach ($fn_main as $line) {
 		fwrite($fd, $line . "\n");
 	}
